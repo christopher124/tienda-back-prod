@@ -34,5 +34,15 @@ api.delete(
   auth.auth,
   clienteController.eliminar_cliente_admin
 );
+api.get(
+  "/obtener_cliente_guest/:id",
+  auth.auth,
+  clienteController.obtener_cliente_guest
+);
+api.put(
+  "/actualizar_perfil_cliente_guest/:id",
+  auth.auth,
+  clienteController.actualizar_perfil_cliente_guest
+);
 
 module.exports = api;

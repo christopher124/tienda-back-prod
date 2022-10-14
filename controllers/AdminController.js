@@ -60,8 +60,24 @@ const login_admin = async function (req, res) {
     });
   }
 };
+const obtener_admin = async function (req, res) {
+  if (req.user) {
+    if (req.user.role == "admin") {
+      var id = req.params["id"];
+
+      try {
+        var reg = await Admin.findById({ _id: id });
+
+        res.status(200).send({ data: reg });
+      } catch (error) {
+        res.status(200).send({ data: undefined });
+      }
+    } else res.status(500).send({ message: "NoAccess" });
+  } else res.status(500).send({ message: "NoAccess" });
+};
 
 module.exports = {
   registro_admin,
   login_admin,
+  obtener_admin,
 };

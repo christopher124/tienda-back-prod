@@ -66,7 +66,7 @@ const obtener_admin = async function (req, res) {
       var id = req.params["id"];
 
       try {
-        var reg = await Admin.findById({ _id: id });
+        var reg = await Cliente.findById({ _id: id });
 
         res.status(200).send({ data: reg });
       } catch (error) {

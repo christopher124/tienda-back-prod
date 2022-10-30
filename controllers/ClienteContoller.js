@@ -124,7 +124,7 @@ const registro_cliente_admin = async function (req, res) {
       res.status(500).send({ message: "NoAccess" });
     }
   } else {
-    res.status(401).send({ message: "El correo ya existe", data: undefined });
+    res.status(401).send({ message: "El correo ya existe.", data: undefined });
   }
 };
 

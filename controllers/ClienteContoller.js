@@ -3,6 +3,7 @@
 var Cliente = require("../models/cliente");
 var bcrypt = require("bcrypt-nodejs");
 var jwt = require("../helpers/jwt");
+var Direccion = require("../models/direccion");
 
 const registro_cliente = async function (req, res) {
   //
@@ -232,6 +233,18 @@ const actualizar_perfil_cliente_guest = async function (req, res) {
     }
   } else res.status(500).send({ message: "NoAccess" });
 };
+/*****************************/
+// Direcciones
+
+const registro_direccion_cliente = async function (req, res) {
+  if (req.user) {
+    var data = req.body;
+    let reg = await Direccion.create(data);
+    res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: "Sin Acceso" });
+  }
+};
 
 module.exports = {
   registro_cliente,
@@ -243,4 +256,5 @@ module.exports = {
   eliminar_cliente_admin,
   obtener_cliente_guest,
   actualizar_perfil_cliente_guest,
+  registro_direccion_cliente,
 };

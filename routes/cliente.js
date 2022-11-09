@@ -44,5 +44,12 @@ api.put(
   auth.auth,
   clienteController.actualizar_perfil_cliente_guest
 );
+/**************************/
+//Direccion
+api.post(
+  "/registro_direccion_cliente",
+  auth.auth,
+  clienteController.registro_direccion_cliente
+);
 
 module.exports = api;

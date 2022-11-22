@@ -313,7 +313,22 @@ const listar_productos_recomendados_publico = async function (req, res) {
     .limit(8);
   res.status(200).send({ data: reg });
 };
-
+const listar_productos_nuevos_publico = async function (req, res) {
+  let reg = await Producto.find()
+    .sort({
+      createdAt: -1,
+    })
+    .limit(8);
+  res.status(200).send({ data: reg });
+};
+const listar_productos_masvendidos_publico = async function (req, res) {
+  let reg = await Producto.find()
+    .sort({
+      nventas: -1,
+    })
+    .limit(8);
+  res.status(200).send({ data: reg });
+};
 module.exports = {
   registro_producto_admin,
   listar_productos_admin,
@@ -330,4 +345,6 @@ module.exports = {
   listar_productos_publico,
   obtener_productos_slug_publico,
   listar_productos_recomendados_publico,
+  listar_productos_nuevos_publico,
+  listar_productos_masvendidos_publico,
 };

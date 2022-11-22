@@ -5,18 +5,18 @@ var Schema = mongoose.Schema;
 
 var DireccionSchema = Schema({
   cliente: { type: Schema.ObjectId, ref: "cliente", required: true },
-  destinatario: { type: String, require: true },
+  destinatario: { type: String, required: true },
   //   dni: { type: String, require: true },
-  zip: { type: String, require: true },
-  direccion: { type: String, require: true },
-  pais: { type: String, require: true },
-  region: { type: String, require: true },
-  provincia: { type: String, require: true },
-  distrito: { type: String, require: true },
-  telefono: { type: String, require: true },
-  principal: { type: Boolean, require: true },
+  zip: { type: String, required: true },
+  direccion: { type: String, required: true },
+  pais: { type: String, required: true },
+  region: { type: String, required: false },
+  provincia: { type: String, required: false },
+  distrito: { type: String, required: false },
+  telefono: { type: String, required: true },
+  principal: { type: Boolean, required: false },
 
-  createdAt: { type: Date, default: Date.now, require: true },
+  createdAt: { type: Date, default: Date.now, required: true },
 });
 
 module.exports = mongoose.model("direccion", DireccionSchema);

@@ -70,4 +70,31 @@ api.get(
 
 api.post("/enviar_mensaje_contacto", clienteController.enviar_mensaje_contacto);
 
+/******Ordenes****/
+api.get(
+  "/obtener_ordenes_cliente/:id",
+  auth.auth,
+  clienteController.obtener_ordenes_cliente
+);
+api.get(
+  "/obtener_detalles_ordenes_cliente/:id",
+  auth.auth,
+  clienteController.obtener_detalles_ordenes_cliente
+);
+
+/*************Reviews*/
+api.post(
+  "/emetir_review_producto_cliente",
+  auth.auth,
+  clienteController.emetir_review_producto_cliente
+);
+api.get(
+  "/obtener_review_producto_cliente/:id",
+  clienteController.obtener_review_producto_cliente
+);
+api.get(
+  "/obtener_reviews_cliente/:id",
+  auth.auth,
+  clienteController.obtener_reviews_cliente
+);
 module.exports = api;

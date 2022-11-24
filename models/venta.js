@@ -7,6 +7,7 @@ var VentaSchema = Schema({
   cliente: { type: Schema.ObjectId, ref: "cliente", required: true },
   nventa: { type: String, require: true },
   subtotal: { type: Number, require: true },
+  tracking: { type: String, default: "", require: true },
   envio_titulo: { type: String, require: true },
   envio_precio: { type: Number, require: true },
   transaccion: { type: String, require: true },

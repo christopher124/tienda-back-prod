@@ -2,7 +2,7 @@
 
 var Producto = require("../models/producto");
 var Inventario = require("../models/inventario");
-
+var Rewiew = require("../models/review");
 var fs = require("fs");
 var path = require("path");
 const registro_producto_admin = async function (req, res) {
@@ -329,6 +329,16 @@ const listar_productos_masvendidos_publico = async function (req, res) {
     .limit(8);
   res.status(200).send({ data: reg });
 };
+
+const listar_reviews_producto_publico = async function (req, res) {
+  let id = req.params["id"];
+
+  let reviews = await Rewiew.find({ producto: id })
+    .populate("cliente")
+    .sort({ createdAt: -1 });
+  res.status(200).send({ data: reviews });
+};
+
 module.exports = {
   registro_producto_admin,
   listar_productos_admin,
@@ -347,4 +357,5 @@ module.exports = {
   listar_productos_recomendados_publico,
   listar_productos_nuevos_publico,
   listar_productos_masvendidos_publico,
+  listar_reviews_producto_publico,
 };

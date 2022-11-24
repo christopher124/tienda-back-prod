@@ -2,7 +2,9 @@
 
 var Cliente = require("../models/cliente");
 var Contacto = require("../models/contacto");
-
+var Venta = require("../models/venta");
+var Review = require("../models/review");
+var Dventa = require("../models/dventa");
 var bcrypt = require("bcrypt-nodejs");
 var jwt = require("../helpers/jwt");
 var Direccion = require("../models/direccion");
@@ -301,6 +303,40 @@ const obtener_direccion_principal_cliente = async function (req, res) {
     res.status(500).send({ message: "Sin Acceso" });
   }
 };
+
+/********Ordenes */
+const obtener_ordenes_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params["id"];
+
+    let reg = await Venta.find({ cliente: id }).sort({ createdAt: -1 });
+
+    if (reg.length >= 1) {
+      res.status(200).send({ data: reg });
+    } else if (reg.length == 0) {
+      res.status(200).send({ data: undefined });
+    }
+  } else {
+    res.status(500).send({ message: "Sin Acceso" });
+  }
+};
+
+const obtener_detalles_ordenes_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params["id"];
+
+    try {
+      let venta = await Venta.findById({ _id: id }).populate("direccion");
+      let detalles = await Dventa.find({ venta: id }).populate("producto");
+      res.status(200).send({ data: venta, detalles: detalles });
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+  } else {
+    res.status(500).send({ message: "Sin Acceso" });
+  }
+};
+
 /************Contacto**************/
 
 const enviar_mensaje_contacto = async function (req, res) {
@@ -309,6 +345,36 @@ const enviar_mensaje_contacto = async function (req, res) {
   let reg = await Contacto.create(data);
 
   res.status(200).send({ data: reg });
+};
+
+/************reviews**************/
+
+const emetir_review_producto_cliente = async function (req, res) {
+  if (req.user) {
+    let data = req.body;
+
+    let reg = await Review.create(data);
+    res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: "Sin Acceso" });
+  }
+};
+
+const obtener_review_producto_cliente = async function (req, res) {
+  var id = req.params["id"];
+
+  let reg = await Review.find({ producto: id }).sort({ createdAt: -1 });
+  res.status(200).send({ data: reg });
+};
+const obtener_reviews_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params["id"];
+
+    let reg = await Review.find({ cliente: id }).populate("cliente");
+    res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: "Sin Acceso" });
+  }
 };
 
 module.exports = {
@@ -326,4 +392,9 @@ module.exports = {
   cambiar_direccion_principal_cliente,
   obtener_direccion_principal_cliente,
   enviar_mensaje_contacto,
+  obtener_ordenes_cliente,
+  obtener_detalles_ordenes_cliente,
+  emetir_review_producto_cliente,
+  obtener_review_producto_cliente,
+  obtener_reviews_cliente,
 };

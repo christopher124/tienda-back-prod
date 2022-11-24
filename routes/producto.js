@@ -89,5 +89,9 @@ api.get(
   "/listar_productos_masvendidos_publico",
   productoController.listar_productos_masvendidos_publico
 );
+api.get(
+  "/listar_reviews_producto_publico/:id",
+  productoController.listar_reviews_producto_publico
+);
 
 module.exports = api;

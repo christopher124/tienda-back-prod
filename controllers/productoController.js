@@ -96,7 +96,7 @@ const actulizar_producto_admin = async function (req, res) {
       if (req.files) {
         // si hay imagen
         var img_path = req.files.portada.path;
-        var name = img_path.split("\\");
+        var name = img_path.split("/");
         var portada_name = name[2];
         let reg = await Producto.findByIdAndUpdate(
           { _id: id },
@@ -238,7 +238,7 @@ const agregar_imagen_galeria_admin = async function (req, res) {
       console.log(req.files);
       var img_path = req.files.imagen.path;
       console.log(img_path);
-      var name = img_path.split("\\");
+      var name = img_path.split("/");
       console.log(name);
       var imagen_name = name[2];
       console.log(imagen_name);

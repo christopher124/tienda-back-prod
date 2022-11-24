@@ -23,7 +23,7 @@ const actualizar_config_admin = async function (req, res) {
       if (req.files) {
         console.log("Si hay imagen");
         var img_path = req.files.logo.path;
-        var name = img_path.split("\\");
+        var name = img_path.split("/");
         var logo_name = name[2];
 
         let reg = await Config.findByIdAndUpdate(

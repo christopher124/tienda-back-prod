@@ -9,7 +9,7 @@ const registro_descuento_admin = async function (req, res) {
       console.log(req.files);
       var img_path = req.files.banner.path;
       console.log(img_path);
-      var name = img_path.split("\\");
+      var name = img_path.split("/");
       var banner_name = name[2];
       data.banner = banner_name;
       let reg = await Descuento.create(data);
@@ -76,7 +76,7 @@ const actulizar_descuento_admin = async function (req, res) {
       if (req.files) {
         // si hay imagen
         var img_path = req.files.banner.path;
-        var name = img_path.split("\\");
+        var name = img_path.split("/");
         var banner_name = name[2];
         console.log(name);
         let reg = await Descuento.findByIdAndUpdate(
